@@ -1,0 +1,22 @@
+package mod;
+
+import cont.JOP;
+
+public abstract class Help
+{
+    public static void instructions()
+    {
+        JOP.msg("                                                                                    APLine\n"
+                + "Commands:\n"
+                + " 1)  Type in \"New Line\" to create a new line through one of two available methods.\n"
+                + " 2)  Type in \"See Slope\" to get the slope of one of the lines in the list.\n"
+                + " 3)  Type in \"See y-int\" to get the y-intercept of one of the lines in the list.\n"
+                + " 4)  Type in \"See Coefficients\" to get the coefficients of one of the lines in the list.\n"
+                + " 5)  Type in \"Compare Point\" to see where a point is in relation to the line (above, below, or on the line).\n"
+                + " 6)  Type in \"Intersection\" and input the requested inputs to get the point in which the two lines intersect.\n"
+                + " 7)  Type in \"Edit Line\" to edit an exisiting line in the list.\n"
+                + " 8)  Type in \"Print List\" to print the list of lines.\n"
+                + " 9)  Type in \"Help\" to come back to these instructions.\n"
+                + " 10) Type in \"Exit\" to exit the program.");
+    }
+}
