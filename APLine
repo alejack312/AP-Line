@@ -1,0 +1,129 @@
+package mod;
+
+public class APLine
+{
+    private double _a;
+    private double _b;
+    private double _c;
+    //ax + by + c = 0
+
+    private double _slope;
+    private double _yInt;
+
+    public APLine(double x, double y, double z)
+    {
+        _a = x;
+        _b = y;
+        _c = z;
+        _slope = -(_a / _b);
+        _yInt = -(_c / _b);
+    }
+
+    public APLine(double x, double y)
+    {
+        _slope = x;
+        _yInt = y;
+        _a = -_slope;
+        _b = 1.0;
+        _c = -_yInt;
+    }
+
+    public double getSlope()
+    {
+        return _slope;
+    }
+
+    public double get_yInt()
+    {
+        return _yInt;
+    }
+
+    public double get_a()
+    {
+        return _a;
+    }
+
+    public double get_b()
+    {
+        return _b;
+    }
+
+    public double get_c()
+    {
+        return _c;
+    }
+
+    public double set_a(double x)
+    {
+        _a = x;
+        return _a;
+    }
+
+    public double set_b(double y)
+    {
+        _b = y;
+        return _b;
+    }
+
+    public double set_c(double z)
+    {
+        _c = z;
+        return _c;
+    }
+
+    public String comparePoint(double x, double y)
+    {
+        String output = "";
+        if((_a * x) + (_b * y) + (_c) == 0)
+        {
+            output += "Your point is on the line.";
+        }
+        else if(y > ((_slope * x) + _yInt))
+        {
+            output += "Your point is above the line";
+        }
+        else
+        {
+            output += "Your point is below the line";
+        }
+        return output;
+    }
+
+    public String slopeToString()
+    {
+        return "Slope: " + (float)getSlope();
+    }
+
+    public String yToString()
+    {
+        return "Y-intercept: " + (float)get_yInt();
+    }
+
+    public String coToString()
+    {
+        return "Coefficients: " + get_a() + ", " + get_b() + ", " + get_c();
+    }
+
+    public String toString(int n)
+    {
+        String output = "";
+        if(get_b() < 0 && get_c() < 0)
+        {
+            output += n + ") " + get_a() + "x + " + "(" + get_b() + "y) + " + "(" + get_c() + ") = 0\n";
+        }
+        else if(get_b() < 0)
+        {
+            output += n + ") " + get_a() + "x + " + "(" + get_b() + "y) + " + get_c() + " = 0\n";
+        }
+        else if(get_c() < 0)
+        {
+            output += n + ") " + get_a() + "x + " + get_b() + "y + " + "(" + get_c() + ") = 0\n";
+        }
+
+        else
+        {
+            output += n + ") " + get_a() + "x + " + get_b() + "y + " + get_c() + " = 0\n";
+        }
+        return output;
+    }
+}
