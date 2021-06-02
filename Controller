@@ -1,0 +1,138 @@
+import cont.JOP;
+import mod.APLine;
+import mod.Help;
+
+public class Controller
+{
+    private APLine _l;
+    private boolean _m;
+    private ArrayList<String> _s;
+    private ArrayList<APLine> _a;
+    int num;
+
+    public Controller()
+    {
+        _m = true;
+        _s = new ArrayList<String>();
+        _s.add("Ax + By + C = 0\n============================\nLines:\n");
+        _a = new ArrayList<APLine>();
+        _a.add(new APLine(1.0, 1.0, 1.0));
+        num = 1;
+    }
+
+    public void firstButtonClicked()
+    {
+        _l = new APLine(Double.parseDouble(JOP.in("Please input a: ")), Double.parseDouble(JOP.in("Please input b: ")), Double.parseDouble(JOP.in("Please input c: ")));
+        _a.add(_l);
+        _s.add(_l.toString(num));
+        num++;
+        printArr();
+    }
+
+    public void secondButtonClicked()
+    {
+        _l = new APLine(Double.parseDouble(JOP.in("Please input a slope: ")), Double.parseDouble(JOP.in("Please input a y-intercept: ")));
+        _a.add(_l);
+        _s.add(_l.toString(num));
+        num++;
+        printArr();
+    }
+
+    public void thirdButtonClicked()
+    {
+        int ind = Integer.parseInt(JOP.in("Please choose a line to edit: "));
+        String _t = JOP.in("Please choose a method to change the line \"1\" or \"2\":\n1) By formula\n2) By slope and point ");
+        if(_t.equalsIgnoreCase("1"))
+        {
+            _l.set_a(Double.parseDouble(JOP.in("Please input a new coefficient for a: ")));
+            _l.set_b(Double.parseDouble(JOP.in("Please input a new coefficient for b: ")));
+            _l.set_c(Double.parseDouble(JOP.in("Please input a new coefficient for c: ")));
+            _a.set(ind, _l);
+            _s.set(ind, _l.toString(ind));
+            printArr();
+        }
+        else
+        {
+            _l = new APLine(Double.parseDouble(JOP.in("Please input a slope: ")), Double.parseDouble(JOP.in("Please input a y-intercept: ")));
+            _a.set(ind, _l);
+            _s.set(ind, _l.toString(ind));
+            printArr();
+        }
+    }
+
+    public void fourthButtonClicked()
+    {
+        int ind = Integer.parseInt(JOP.in("Please choose a line (Starting at 1): "));
+        JOP.msg(_a.get(ind).slopeToString());
+    }
+
+    public void fifthButtonClicked()
+    {
+        int ind = Integer.parseInt(JOP.in("Please choose a line (Starting at 1): "));
+        JOP.msg(_a.get(ind).coToString());
+    }
+
+    public void sixthButtonClicked()
+    {
+        int ind = Integer.parseInt(JOP.in("Please choose a line (Starting at 1): "));
+        JOP.msg(_a.get(ind).yToString());
+    }
+
+    public void seventhButtonClicked()
+    {
+        int ind = Integer.parseInt(JOP.in("Please choose a line (Starting at 1): "));
+        JOP.msg(_a.get(ind).comparePoint(Double.parseDouble(JOP.in("Please input x: ")), Double.parseDouble(JOP.in("Please input y: "))));
+    }
+
+    public void eightButtonClicked()
+    {
+        checkIntersection(_a.get(Integer.parseInt(JOP.in("Please choose the first line: "))), _a.get(Integer.parseInt(JOP.in("Please choose the second line: "))));
+    }
+
+    public void ninthButtonClicked()
+    {
+        printArr();
+    }
+
+    public void tenthButtonClicked()
+    {
+        Help.instructions();
+    }
+
+    public void eleventhButtonClicked()
+    {
+        _m = false;
+        printArr();
+        System.exit(0);
+    }
+
+    public void printArr()
+    {
+        String output = "";
+        for(int i = 0; i < _s.size(); i++)
+        {
+            output += _s.get(i);
+        }
+        JOP.msg(output);
+    }
+
+    public void checkIntersection(APLine one, APLine two)
+    {
+        String output = "";
+        if(one.getSlope() == two.getSlope() && one.get_yInt() == two.get_yInt())
+        {
+            output += "The lines have the same slope and y-intercept so they intersect at all points";
+        }
+        else if(one.getSlope() == two.getSlope() && one.get_yInt() != two.get_yInt())
+        {
+            output += "The lines have the same slope but different y-intercepts so they never intersect.";
+        }
+        else
+        {
+            double x = ((-two.get_c() - (two.get_b() * one.get_yInt())) / (two.get_a() + (two.get_b() * one.getSlope())));
+            double y = ((-one.get_c() - (one.get_a() * x)) / one.get_b());
+            output += "The lines intersect at the point: (" + (float)x + ", " + (float)y + ")";
+        }
+        JOP.msg(output);
+    }
+}
